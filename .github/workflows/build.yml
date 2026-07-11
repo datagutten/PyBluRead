@@ -55,6 +55,7 @@ jobs:
       run: python -m cibuildwheel --output-dir wheelhouse
       env:
         CIBW_BEFORE_ALL_LINUX: dnf install -y libbluray-devel libaacs
+        CIBW_MANYLINUX_X86_64_IMAGE: manylinux_2_34
       if: matrix.os == 'ubuntu-latest'
 
     - uses: actions/upload-artifact@v6
