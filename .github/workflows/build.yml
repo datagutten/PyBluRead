@@ -42,6 +42,11 @@ jobs:
     - name: Install cibuildwheel
       run: python -m pip install cibuildwheel==4.1.0
 
+    - name: Check path
+      run: |
+        ls -l ${{ github.workspace }}\libbluray\bin\x64
+        echo "$PATH"
+
     - name: Build wheels
       run: python -m cibuildwheel --output-dir wheelhouse
       env:
