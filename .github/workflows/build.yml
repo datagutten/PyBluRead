@@ -4,9 +4,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_pybluread:
-    name: Build PyBluRead
-    runs-on: windows-latest
+  build_wheels:
+    name: Build wheels on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
 
     steps:
     - name: Checkout
@@ -20,6 +23,7 @@ jobs:
         name: libbluray
         path: ${{ github.workspace }}/libbluray
         repo: Windows-Media-Tools/libbluray
+      if: matrix.os == 'windows-latest'
 
     - name: Download libaacs
       uses: dawidd6/action-download-artifact@v21
@@ -29,6 +33,11 @@ jobs:
         name: libaacs
         path: ${{ github.workspace }}/libaacs
         repo: Windows-Media-Tools/libaacs
+      if: matrix.os == 'windows-latest'
+
+    - name: Install dependencies
+      run: sudo apt-get update && sudo apt-get install libbluray-dev libaacs-dev
+      if: matrix.os == 'ubuntu-latest'
 
     - name: Set up Python
       uses: actions/setup-python@v6
