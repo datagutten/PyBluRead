@@ -40,6 +40,8 @@ jobs:
       run: python -m cibuildwheel --output-dir wheelhouse
       env:
         CIBW_SKIP: "*-win32 *-*linux_i686"
+        LIBBLURAY_INCLUDE_DIR: ${{ github.workspace }}\libbluray\include\\libbluray
+        LIBBLURAY_LIBRARY_DIR: ${{ github.workspace }}\libbluray\lib\x64
 
     - uses: actions/upload-artifact@v6
       with:
