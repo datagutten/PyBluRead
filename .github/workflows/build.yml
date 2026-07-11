@@ -30,22 +30,11 @@ jobs:
         path: ${{ github.workspace }}/libaacs
         repo: Windows-Media-Tools/libaacs
 
-    - name: Add to path
-      run: |
-        echo "${{ github.workspace }}\libaacs\bin\x64" >> "$GITHUB_PATH"
-        echo "${{ github.workspace }}\libbluray\bin\x64" >> "$GITHUB_PATH"
-        echo "$PATH"
-
     - name: Set up Python
       uses: actions/setup-python@v6
 
     - name: Install cibuildwheel
       run: python -m pip install cibuildwheel==4.1.0
-
-    - name: Check path
-      run: |
-        ls -l ${{ github.workspace }}\libbluray\bin\x64
-        echo "$PATH"
 
     - name: Build wheels
       run: python -m cibuildwheel --output-dir wheelhouse
@@ -53,6 +42,7 @@ jobs:
         CIBW_SKIP: "*-win32 *-*linux_i686"
         LIBBLURAY_INCLUDE_DIR: ${{ github.workspace }}\libbluray\include\\libbluray
         LIBBLURAY_LIBRARY_DIR: ${{ github.workspace }}\libbluray\lib\x64
+        CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: delvewheel repair -w {dest_dir} -v {wheel} --add-path "${{ github.workspace }}\libbluray\bin\x64" --add-path "${{ github.workspace }}\libaacs\bin\x64" --include aacs.dll
 
     - uses: actions/upload-artifact@v6
       with:
