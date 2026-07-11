@@ -36,10 +36,6 @@ jobs:
         repo: Windows-Media-Tools/libaacs
       if: matrix.os == 'windows-latest'
 
-    - name: Install dependencies
-      run: sudo apt-get update && sudo apt-get install libbluray-dev libaacs-dev
-      if: matrix.os == 'ubuntu-latest'
-
     - name: Set up Python
       uses: actions/setup-python@v6
 
@@ -56,9 +52,9 @@ jobs:
       if: matrix.os == 'windows-latest'
 
     - name: Build wheels
-      run: |
-        ls -l /usr/include/libbluray
-        python -m cibuildwheel --output-dir wheelhouse
+      run: python -m cibuildwheel --output-dir wheelhouse
+      env:
+        CIBW_BEFORE_ALL_LINUX: apt-get install -y libbluray-dev libaacs-dev
       if: matrix.os == 'ubuntu-latest'
 
     - uses: actions/upload-artifact@v6
