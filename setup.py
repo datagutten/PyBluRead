@@ -14,8 +14,9 @@ bluray = Extension(
         ('MAJOR_VERSION', str(majv)),
         ('MINOR_VERSION', str(minv))
     ],
-	include_dirs = ['/usr/include/libbluray'],
+    include_dirs=[os.environ.get('LIBBLURAY_INCLUDE_DIR', '/usr/include/libbluray')],
     libraries=['bluray'],
+    library_dirs=[os.environ.get('LIBBLURAY_LIBRARY_DIR')],
     sources=['src/bluread.c']
 )
 
