@@ -8,6 +8,7 @@ jobs:
     name: Build wheels on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os: [ ubuntu-latest, windows-latest ]
 
@@ -52,6 +53,11 @@ jobs:
         LIBBLURAY_INCLUDE_DIR: ${{ github.workspace }}\libbluray\include\\libbluray
         LIBBLURAY_LIBRARY_DIR: ${{ github.workspace }}\libbluray\lib\x64
         CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: delvewheel repair -w {dest_dir} -v {wheel} --add-path "${{ github.workspace }}\libbluray\bin\x64" --add-path "${{ github.workspace }}\libaacs\bin\x64" --include aacs.dll
+      if: matrix.os == 'windows-latest'
+
+    - name: Build wheels
+      run: python -m cibuildwheel --output-dir wheelhouse
+      if: matrix.os == 'ubuntu-latest'
 
     - uses: actions/upload-artifact@v6
       with:
