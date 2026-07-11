@@ -30,6 +30,12 @@ jobs:
         path: ${{ github.workspace }}/libaacs
         repo: Windows-Media-Tools/libaacs
 
+    - name: Add to path
+      run: |
+        echo "${{ github.workspace }}\libaacs" >> "$GITHUB_PATH"
+        echo "${{ github.workspace }}\libbluray" >> "$GITHUB_PATH"
+        echo "$PATH"
+
     - name: Set up Python
       uses: actions/setup-python@v6
 
