@@ -54,7 +54,7 @@ jobs:
     - name: Build wheels
       run: python -m cibuildwheel --output-dir wheelhouse
       env:
-        CIBW_BEFORE_ALL_LINUX: apt-get install -y libbluray-dev libaacs-dev
+        CIBW_BEFORE_ALL_LINUX: dnf install -y libbluray-devel libaacs
       if: matrix.os == 'ubuntu-latest'
 
     - uses: actions/upload-artifact@v6
