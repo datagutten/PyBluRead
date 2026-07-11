@@ -56,7 +56,9 @@ jobs:
       if: matrix.os == 'windows-latest'
 
     - name: Build wheels
-      run: python -m cibuildwheel --output-dir wheelhouse
+      run: |
+        ls -l /usr/include/libbluray
+        python -m cibuildwheel --output-dir wheelhouse
       if: matrix.os == 'ubuntu-latest'
 
     - uses: actions/upload-artifact@v6
