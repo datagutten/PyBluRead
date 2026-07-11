@@ -32,8 +32,8 @@ jobs:
 
     - name: Add to path
       run: |
-        echo "${{ github.workspace }}\libaacs" >> "$GITHUB_PATH"
-        echo "${{ github.workspace }}\libbluray" >> "$GITHUB_PATH"
+        echo "${{ github.workspace }}\libaacs\bin\x64" >> "$GITHUB_PATH"
+        echo "${{ github.workspace }}\libbluray\bin\x64" >> "$GITHUB_PATH"
         echo "$PATH"
 
     - name: Set up Python
