@@ -54,7 +54,7 @@ jobs:
     - name: Build wheels
       run: python -m cibuildwheel --output-dir wheelhouse
       env:
-        CIBW_BEFORE_ALL_LINUX: dnf install -y libbluray-devel libaacs
+        CIBW_BEFORE_ALL_LINUX: dnf install -y libbluray-devel
         CIBW_MANYLINUX_X86_64_IMAGE: manylinux_2_34
       if: matrix.os == 'ubuntu-latest'
 
